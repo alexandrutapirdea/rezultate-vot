@@ -1,0 +1,31 @@
+.login-container{
+    background-color: #fc0;
+    padding: 5% !important;
+    margin:2%;
+    /*border: 1px solid black;*/
+}
+
+.title{
+    font-size: 1.8rem;
+    font-weight: bold;
+    color:black;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.custom-button{
+    background-color: #343a40 ;
+    border-color: #262626;
+}
+
+.custom-button:hover{
+    background-color: #5d5ea2;
+}
+label{
+    margin-bottom: 1% !important;
+    font-weight: bold;
+}

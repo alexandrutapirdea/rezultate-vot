@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Container } from 'reactstrap';
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Container, Button} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import votLogo from '../../images/rezultateVot.png';
 import './NavMenu.css';
@@ -13,7 +13,8 @@ export class NavMenu extends Component {
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true
+      collapsed: true,
+        // authToken : localStorage.getItem("authToken")
     };
   }
 
@@ -27,7 +28,13 @@ export class NavMenu extends Component {
       ElectionPicker.changeSelection(event.target.value);
   }
 
+    logout(){
+      localStorage.removeItem("authToken");
+        this.props.history.push('/web/admin-login');
+}
+
   render() {
+      const {authToken} = this.state;
     return (
       <header>
         <Navbar light expand="md">
@@ -49,6 +56,10 @@ export class NavMenu extends Component {
                     </NavItem>
                     <NavItem>
                       <NavLink tag={Link} className="text-dark" to="/web/despre-noi">DESPRE NOI</NavLink>
+                    </NavItem>
+                    <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/web/admin-login">ADMIN LOGIN</NavLink>
+                        {/*{authToken && <Button color="primary" onClick={this.logout}>Log out</Button>}*/}
                     </NavItem>
               </Nav>
             </Collapse>

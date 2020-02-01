@@ -9,14 +9,28 @@ import {HomePage} from "./components/HomePage";
 import {VoteMonitoring} from "./components/VoteMonitoring";
 import {ChartContainer} from "./components/CandidatesChart";
 import {ElectionChart} from "./components/Chart";
+import {AdminLoginPage} from "./components/AdminLoginPage/AdminLoginPage";
+import {AdminPanel} from "./components/AdminPanel/AdminPanel";
+import {Button} from "reactstrap"
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        localStorage.getItem("authToken")
+            ? <Component {...props} />
+            : <Redirect to='/web/admin-login' />
+    )} />
+);
 
 export default class App extends Component {
+
+
     static displayName = App.name;
     render() {
         const baseNonWidgetPath = '/web';
         const baseWidgetPath = '/widgets';
         return (
             <div>
+                {/*<Button color="primary" onClick={this.logout}>Log out</Button>*/}
                 <Route exact path="/" render={() => (
                     <Redirect to={baseNonWidgetPath}/>
                 )} />
@@ -25,6 +39,8 @@ export default class App extends Component {
                         <Route exact path={`${baseNonWidgetPath}/`} component={HomePage}/>
                         <Route path={`${baseNonWidgetPath}/despre-proiect`} component={AboutProjectPage}/>
                         <Route path={`${baseNonWidgetPath}/despre-noi`} component={AboutUsPage}/>
+                        <Route path={`${baseNonWidgetPath}/admin-login`} component={AdminLoginPage}/>
+                        <PrivateRoute path={`${baseNonWidgetPath}/admin-panel`} component={AdminPanel}/>
                         <Route path={`${baseNonWidgetPath}/politica-de-confidentialitate`} component={ConfidentialityPolicyPage}/>
                         <Route path={`${baseNonWidgetPath}/termeni-si-conditii`} component={TermsAndConditionsPage}/>
                         <Route path={`${baseNonWidgetPath}/monitorizare-vot`} component={VoteMonitoring}/>
